@@ -1,0 +1,27 @@
+Empresa: NewTech
+Cargo: Desenvolvedor Front-End Júnior
+Compatibilidade: 100%
+Habilidades Encontradas: JavaScript,GitHub,Lógica de Programação
+Habilidades faltantes: 
+Classificação: Alta compatibilidade
+----------------------
+Empresa: LabsCode
+Cargo: Estágio Front-End
+Compatibilidade: 75%
+Habilidades Encontradas: JavaScript,GitHub,Kanban
+Habilidades faltantes: React
+Classificação: Média compatibilidade
+----------------------
+Empresa: NextSolutions
+Cargo: Programador Front-End
+Compatibilidade: 25%
+Habilidades Encontradas: JavaScript
+Habilidades faltantes: Arrays,Objetos,Funções
+Classificação: Baixa compatibilidade
+----------------------
+Vaga mais compatível:
+NewTech - Desenvolvedor Front-End Júnior
+Compatibilidade: 100%
+----------------------
+Recomendação de estudo:
+Priorizar estudar Arrays,Objetos,Funções, pois esses conteúdos aparecem nas vagas analisadas.

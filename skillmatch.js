@@ -34,7 +34,7 @@ const vagas = [
 
 let maiorCompatibilidade = 0;
 let melhorVaga;
-let recomendacaoEstudo;
+let recomendacaoEstudo = [];
 
 vagas.forEach(function(vaga) {
     const comparaHabilidades = candidato.habilidades.filter(habilidades => vaga.requisitos.includes(habilidades));
@@ -63,9 +63,13 @@ vagas.forEach(function(vaga) {
         maiorCompatibilidade = compatibilidade;
     }
 
-    if (habilidadeFaltantes.length){
-        recomendacaoEstudo = habilidadeFaltantes
-    }
+    recomendacaoEstudo = vagas.reduce((acumular, vaga) => {
+    const faltantes = vaga.requisitos.filter(req => 
+        !candidato.habilidades.includes(req)
+    );
+    return acumular.concat(faltantes);
+    }, []);
+
 
     console.log('Empresa: ' + vaga.empresa)
     console.log('Cargo: ' + vaga.cargo)
@@ -84,8 +88,11 @@ vagas.forEach(function(vaga) {
 
     console.log('Recomendação de estudo:');
     console.log('Priorizar estudar ' + recomendacaoEstudo + ', ' + 'pois esses conteúdos aparecem nas vagas analisadas.');
+    console.log('----------------------')
 
-
+    const vagaRemota = vagas.find(vaga => vaga.modalidade === 'Remoto');
+    console.log('Vaga remota encontrada: ' + vagaRemota.empresa + ' - ' + vagaRemota.cargo);
+    console.log('----------------------')
 
 class Vaga {
     constructor(empresa, cargo, requisitos, salario, modalidade) {
@@ -101,6 +108,16 @@ class Vaga {
     }
 }
 
+const vagaJunior = new Vaga(
+    'BigTech Tecnology',
+    'Junior FullStack', 
+    ['React', 'Node', 'SQL', 'API'],
+    '4.000',
+    'Híbrido' 
+);
+
+
+
 class VagaFrontEnd extends Vaga {
     constructor(empresa, cargo, requisitos, salario, modalidade, nivel) {
         super(empresa, cargo, requisitos, salario, modalidade);
@@ -110,22 +127,29 @@ class VagaFrontEnd extends Vaga {
     exibirNivel(){
         return `Nivel da Vaga: ${this.nivel}`;
     }
-
-    exibirResumo() {
-    return `${this.cargo} na empresa ${this.empresa}`;
-    }
 }
 
+const vagaFrontReactNative = new VagaFrontEnd(
+    'Promisse Tech',
+    'Front-End', 
+    ['React', 'ReactNative','Tailwind','API'],
+    '6.500',
+    'Remoto',
+    'Senior'
+)
 
+ 
 
 function finalizarAnalise(nomeCandidato, callback) {
     console.log('Análise Finalizada');
     callback(nomeCandidato);
 }
 
+
 function exibirMensagemFinal(nome) {
     console.log(`${nome}, revise suas habilidades faltantes e atualize seu plano de estudos.`);
 }
+
 
 function criarContadorDeanalises(){
     let total = 0;
@@ -135,6 +159,8 @@ function criarContadorDeanalises(){
         return total;
     };
 }
+
+
 
 function buscarVagasSimuladas() {
     return new Promise((resolve) => {
@@ -151,3 +177,11 @@ async function iniciarSistema() {
 }
 
 iniciarSistema();
+finalizarAnalise(candidato.nome, exibirMensagemFinal);
+
+const contarAnalise = criarContadorDeanalises();
+console.log('Total de análises: ' + contarAnalise());
+
+console.log(vagaJunior.exibirResumo());
+console.log(vagaFrontReactNative.exibirResumo());
+console.log(vagaFrontReactNative.exibirNivel());
